@@ -25,7 +25,7 @@ public class UserService implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<com.mountain.mountain.domain.user.model.User> user = userRepository.findById(username);
+        Optional<User> user = userRepository.findById(username);
         return user.orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
     }
