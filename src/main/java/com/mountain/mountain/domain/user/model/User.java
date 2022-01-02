@@ -1,9 +1,7 @@
 package com.mountain.mountain.domain.user.model;
 
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,7 +11,9 @@ import java.util.Collection;
 @Entity
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name ="user_info")
+@Builder
 public class User implements UserDetails {
     @Id
     @Column(name = "id")
@@ -24,6 +24,13 @@ public class User implements UserDetails {
 
     @Column(name = "name")
     private String name;
+
+    @Builder
+    public User(String userImg, String name) {
+        this.userImg = userImg;
+        this.name = name;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -59,4 +66,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return false;
     }
+
+
 }

@@ -1,10 +1,12 @@
 package com.mountain.mountain.domain.user.service;
 
+import com.mountain.mountain.controller.user.dto.RegisterUserDTO;
 import com.mountain.mountain.domain.user.dao.UserRepository;
 import com.mountain.mountain.exception.CustomException;
 import com.mountain.mountain.exception.ErrorCode;
+import com.mountain.mountain.domain.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,7 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
+
 public class UserService implements UserDetailsService {
+
     @Autowired
     UserRepository userRepository;
 
@@ -25,4 +29,20 @@ public class UserService implements UserDetailsService {
         return user.orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
     }
+
+    //유저 등록
+    @Transactional
+    public User register(User user) {
+
+        User registeredUser = User.builder()
+                .name(user.getName())
+                .build();
+
+        userRepository.save(registeredUser);
+
+        return registeredUser;
+
+    }
 }
+
+
