@@ -1,5 +1,6 @@
 package com.mountain.mountain.config.auth;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +15,7 @@ import java.io.IOException;
 
 public class MockAuthFilter extends OncePerRequestFilter {
 
+    @Autowired
     private final UserDetailsService userDetailsService;
 
     public MockAuthFilter(UserDetailsService userDetailsService) {
