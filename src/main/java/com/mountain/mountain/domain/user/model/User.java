@@ -11,9 +11,7 @@ import java.util.Collection;
 @Entity
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name ="user_info")
-@Builder
 public class User implements UserDetails {
     @Id
     @Column(name = "id")
@@ -26,7 +24,8 @@ public class User implements UserDetails {
     private String name;
 
     @Builder
-    public User(String userImg, String name) {
+    public User(String id,String userImg, String name) {
+        this.id = id;
         this.userImg = userImg;
         this.name = name;
     }

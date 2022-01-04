@@ -4,6 +4,8 @@ package com.mountain.mountain.controller.user;
 import com.mountain.mountain.controller.user.dto.RegisterUserDTO;
 import com.mountain.mountain.domain.user.model.User;
 import com.mountain.mountain.domain.user.service.UserService;
+import com.mountain.mountain.exception.CustomException;
+import com.mountain.mountain.exception.ErrorCode;
 import com.mountain.mountain.util.RequestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +21,16 @@ import java.util.Random;
 public class UserController {
 
 
-
     @Autowired
     private UserService userService;
 
     //회원 등록
-    @PostMapping("")
+    @PostMapping("/users")
     public void register(@RequestHeader("Authorization") String authorization,
                          @RequestBody RegisterUserDTO registerUserDTO) {
 
         String uid;
+
 
         try {
         String token = RequestUtil.getAuthorizationToken(authorization);
@@ -48,12 +50,11 @@ public class UserController {
 
                 uid = generatedString;
 
-                userService.register(registerUserDTO.getName());
+                userService.register(uid,registerUserDTO);
 
             }
-        } catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
-                    "{\"code\":\"INVALID_TOKEN\", \"message\":\"" + e.getMessage() + "\"}");
+        } catch (CustomException e) {
+            throw new CustomException(ErrorCode.BAD_REQUEST_PARAM);
         }
 
     }
