@@ -11,11 +11,10 @@ import org.springframework.context.annotation.Profile;
 
 @Configuration
 @Slf4j
-@RequiredArgsConstructor
 public class AuthConfig {
 
     @Autowired
-    private final UserService userService;
+    private UserService userService;
 
     @Bean
     @Profile("local")
