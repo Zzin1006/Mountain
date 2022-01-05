@@ -24,6 +24,4 @@ public class AuthConfig {
         authFilterContainer.setAuthFilter(new MockAuthFilter(userService));
         return authFilterContainer;
     }
-
-
 }

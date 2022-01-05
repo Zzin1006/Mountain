@@ -2,12 +2,14 @@ package com.mountain.mountain.controller.user;
 
 
 import com.mountain.mountain.controller.user.dto.RegisterUserDTO;
+import com.mountain.mountain.controller.user.dto.UserDTO;
 import com.mountain.mountain.domain.user.model.User;
 import com.mountain.mountain.domain.user.service.UserService;
 import com.mountain.mountain.util.RequestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -17,8 +19,6 @@ import java.util.Random;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-
-
 
     @Autowired
     private UserService userService;
@@ -45,10 +45,10 @@ public class UserController {
                         .limit(length)
                         .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                         .toString();
-
+                        
                 uid = generatedString;
 
-                userService.register(registerUserDTO.getName());
+                userService.register(uid, registerUserDTO);
 
             }
         } catch (IllegalArgumentException e) {
@@ -56,6 +56,16 @@ public class UserController {
                     "{\"code\":\"INVALID_TOKEN\", \"message\":\"" + e.getMessage() + "\"}");
         }
 
+
     }
+
+
+    // 로그인
+    @GetMapping("/me")
+    public UserDTO login(Authentication authentication) {
+        User loginUser = (User) authentication.getPrincipal();
+        return new UserDTO(loginUser);
+    }
+
 
 }

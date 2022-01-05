@@ -16,11 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
-
 public class UserService implements UserDetailsService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -32,10 +31,11 @@ public class UserService implements UserDetailsService {
 
     //유저 등록
     @Transactional
-    public User register(User user) {
+    public User register(String uid, RegisterUserDTO registerUserDTO) {
 
         User registeredUser = User.builder()
-                .name(user.getName())
+                .id(uid)
+                .name(registerUserDTO.getName())
                 .build();
 
         userRepository.save(registeredUser);
