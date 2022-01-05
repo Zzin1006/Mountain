@@ -31,7 +31,7 @@ public class UserService implements UserDetailsService {
 
     //유저 등록
     @Transactional
-    public User register(String uid,RegisterUserDTO registerUserDTO) {
+    public User register(String uid, RegisterUserDTO registerUserDTO) {
 
         User registeredUser = User.builder()
                 .id(uid)
