@@ -42,7 +42,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //인증 예외 URL 설정
 
         web.ignoring().antMatchers(HttpMethod.POST, "/users")
-                .antMatchers("/");
+                .antMatchers("/")
+                .antMatchers(HttpMethod.GET ,"/mountains")
+                .antMatchers(HttpMethod.GET ,"/mountains/**")
+                .antMatchers("/css/**")
+                .antMatchers("/js/**")
+                .antMatchers("/img/**")
+                .antMatchers("/fonts/**")
+                .antMatchers("/vendor/**")
+                .antMatchers("/favicon.ico")
+            ;
     }
 
 }
