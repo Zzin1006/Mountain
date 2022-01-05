@@ -8,6 +8,6 @@ import lombok.Data;
 public class RegisterUserDTO {
 
 
-    private User name;
+    private String Name;
 
 }

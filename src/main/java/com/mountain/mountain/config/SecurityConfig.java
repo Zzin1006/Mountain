@@ -41,8 +41,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         //인증 예외 URL 설정
 
-        web.ignoring().antMatchers(HttpMethod.POST,"users")
-                .antMatchers("/");
+        web.ignoring().antMatchers(HttpMethod.POST, "/users")
+                .antMatchers("/")
+                .antMatchers(HttpMethod.GET ,"/mountains")
+                .antMatchers(HttpMethod.GET ,"/mountains/**")
+                .antMatchers("/css/**")
+                .antMatchers("/js/**")
+                .antMatchers("/img/**")
+                .antMatchers("/fonts/**")
+                .antMatchers("/vendor/**")
+                .antMatchers("/favicon.ico")
+            ;
     }
 
 }
