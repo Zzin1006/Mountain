@@ -19,16 +19,5 @@ public class CommunityController {
     @Autowired
     CategoryService categoryService;
 
-    // 커뮤니티 글 등록
-    @PostMapping("/{cateNo}")
-    public void registerCommu(@PathVariable(value = "cateNo") Long cateId,
-                              @RequestBody RegisterCommuDTO registerCommuDTO, Authentication authentication) {
 
-        // header에 user포함, RequestParam으로 받을 필요x
-        User user = ((User) authentication.getPrincipal()); // 인증유저
-        // 어떤 카테고리에 글을 쓸 것인지
-        Category cate = categoryService.findCateByNo(cateId);
-        communityService.registerCommu(user, cateId, registerCommuDTO);
-
-    }
 }

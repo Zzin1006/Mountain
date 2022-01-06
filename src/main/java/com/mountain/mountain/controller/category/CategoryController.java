@@ -24,8 +24,7 @@ public class CategoryController {
 
     //카테고리 조회
     @GetMapping("")
-    public Page<ResponseCategoryDTO> getCateList(Authentication authentication, Pageable pageable){
-        User user = ((User) authentication.getPrincipal());
+    public Page<ResponseCategoryDTO> getCateList(Pageable pageable){
         return categoryService.findAllCategory(pageable).map(Category -> new ResponseCategoryDTO(Category));
     }
 

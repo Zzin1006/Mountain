@@ -19,7 +19,6 @@ public class CommunityService {
         Community commu = Community.builder()
                 .writerId(user)
                 .title(registerCommuDTO.getTitle())
-                .cateId(cateId)
                 .content(registerCommuDTO.getContent())
                 .build();
 
