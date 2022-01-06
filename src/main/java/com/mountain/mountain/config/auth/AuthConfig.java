@@ -1,6 +1,7 @@
 package com.mountain.mountain.config.auth;
 
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.mountain.mountain.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,10 @@ public class AuthConfig {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private FirebaseAuth firebaseAuth;
+
 
     @Bean
     @Profile("local")
