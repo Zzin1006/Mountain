@@ -1,6 +1,7 @@
 package com.mountain.mountain.config.auth;
 
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.mountain.mountain.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,11 +12,14 @@ import org.springframework.context.annotation.Profile;
 
 @Configuration
 @Slf4j
-@RequiredArgsConstructor
 public class AuthConfig {
 
     @Autowired
-    private final UserService userService;
+    private UserService userService;
+
+    @Autowired
+    private FirebaseAuth firebaseAuth;
+
 
     @Bean
     @Profile("local")
@@ -25,6 +29,4 @@ public class AuthConfig {
         authFilterContainer.setAuthFilter(new MockAuthFilter(userService));
         return authFilterContainer;
     }
-
-
 }
