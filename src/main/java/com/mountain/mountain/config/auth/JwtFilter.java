@@ -4,11 +4,15 @@ package com.mountain.mountain.config.auth;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
+import com.mountain.mountain.exception.CustomException;
 import com.mountain.mountain.util.RequestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpStatus;
 import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -17,6 +21,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 @Slf4j
 public class JwtFilter extends OncePerRequestFilter {
@@ -50,6 +55,21 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
 
         }
+
+        // User를 가져와 SecurityContext에 저장
+        try {
+            UserDetails user = userDetailsService.loadUserByUsername(decodedToken.getUid());
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        } catch(NoSuchElementException | CustomException e) {
+            log.info("user found exception : " + e.getMessage());
+            //ErrorMessage 응답 전송
+            response.setStatus(HttpStatus.SC_NOT_FOUND);
+            response.setContentType("application/json");
+            response.getWriter().write("{\"code\":\"USER_NOT_FOUND\"}");
+            return;
+        }
+
 
         //요청, 응답시 filter호출
         filterChain.doFilter(request, response);

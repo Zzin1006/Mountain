@@ -4,15 +4,12 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import org.json.JSONObject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 
 @Configuration
 public class FirebaseConfig {
@@ -28,11 +25,10 @@ public class FirebaseConfig {
     }
 
     private InputStream getFirebaseIs() throws IOException {
-        ClassPathResource resource = new ClassPathResource("serviceAccountKey.json");
-        if(resource.exists())
-            return resource.getInputStream();
 
-        JSONObject jsonObject = new JSONObject();
-        return new ByteArrayInputStream(jsonObject.toString().getBytes());
+        ClassPathResource resource = new ClassPathResource("serviceAccountKey.json");
+        if(resource.exists()) {
+            return resource.getInputStream();
+        } throw new RuntimeException("firebase 키가 존재하지 않습니다");
     }
 }
