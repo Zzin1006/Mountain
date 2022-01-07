@@ -3,9 +3,11 @@ package com.mountain.mountain.domain.community.model;
 
 import com.mountain.mountain.domain.category.model.Category;
 import com.mountain.mountain.domain.user.model.User;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -33,9 +35,11 @@ public class Community {
     private String content;
 
     @Column(name = "fst_reg_dtm")
+    @CreatedDate
     private LocalDateTime fstRegDtm;
 
     @Column(name = "lst_reg_dtm")
+    @CreatedDate
     private LocalDateTime lstUpdDtm;
 
     @Column(name = "view_count")
@@ -43,4 +47,16 @@ public class Community {
 
     @Column(name = "title")
     private String title;
+
+    @Builder
+    public Community(Long commupostNo, User writerId, Category cateId, String content, LocalDateTime fstRegDtm, LocalDateTime lstUpdDtm, Long viewCount, String title) {
+        this.commupostNo = commupostNo;
+        this.writerId = writerId;
+        this.cateId = cateId;
+        this.content = content;
+        this.fstRegDtm = fstRegDtm;
+        this.lstUpdDtm = lstUpdDtm;
+        this.viewCount = viewCount;
+        this.title = title;
+    }
 }

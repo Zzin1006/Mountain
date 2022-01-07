@@ -15,6 +15,7 @@ public enum ErrorCode {
     FORBIDDEN_USER(HttpStatus.FORBIDDEN, "해당 요청에 권한이 없습니다."),
 
     NOT_FOUND_COMMUNITY(HttpStatus.NOT_FOUND, "해당 게시글을 찾을 수 없습니다."),
+    NOT_FOUND_CATEGORY(HttpStatus.NOT_FOUND, "해당 카테고리를 찾을 수 없습니다."),
     NOT_FOUND_USER(HttpStatus.NOT_FOUND, "해당 유저를 찾을 수 없습니다."),
     NOT_FOUND_REPLY(HttpStatus.NOT_FOUND,"해당 댓글을 찾을 수 없습니다."),
     NOT_FOUND_MOUNTAIN(HttpStatus.NOT_FOUND, "해당 산을 찾을 수 없습니다."),
