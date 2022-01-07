@@ -20,13 +20,21 @@ public class AuthConfig {
     @Autowired
     private FirebaseAuth firebaseAuth;
 
-
     @Bean
     @Profile("local")
     public AuthFilterContainer mockAuthFilter() {
         log.info("Initializing Mock AuthFilter");
         AuthFilterContainer authFilterContainer = new AuthFilterContainer();
         authFilterContainer.setAuthFilter(new MockAuthFilter(userService));
+        return authFilterContainer;
+    }
+
+    @Bean
+    @Profile("!local")
+    public AuthFilterContainer firebaseAuthFilter() {
+        log.info("Initializing Firebase AuthFilter");
+        AuthFilterContainer authFilterContainer = new AuthFilterContainer();
+        authFilterContainer.setAuthFilter(new JwtFilter(userService, firebaseAuth));
         return authFilterContainer;
     }
 }
