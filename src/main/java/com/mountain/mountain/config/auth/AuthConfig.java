@@ -29,7 +29,7 @@ public class AuthConfig {
     }
 
     @Bean
-    @Profile("!local")
+    @Profile("main")
     public AuthFilterContainer firebaseAuthFilter() {
         log.info("Initializing Firebase AuthFilter");
         AuthFilterContainer authFilterContainer = new AuthFilterContainer();
