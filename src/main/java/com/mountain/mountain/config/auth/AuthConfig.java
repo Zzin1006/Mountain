@@ -3,7 +3,6 @@ package com.mountain.mountain.config.auth;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.mountain.mountain.domain.user.service.UserService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
