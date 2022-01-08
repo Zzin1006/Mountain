@@ -31,11 +31,11 @@ public class UserService implements UserDetailsService {
 
     //유저 등록
     @Transactional
-    public User register(String uid, RegisterUserDTO registerUserDTO) {
+    public User register(String uid, String name) {
 
         User registeredUser = User.builder()
                 .id(uid)
-                .name(registerUserDTO.getName())
+                .name(name)
                 .build();
 
         userRepository.save(registeredUser);
