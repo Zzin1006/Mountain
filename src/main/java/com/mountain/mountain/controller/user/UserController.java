@@ -38,7 +38,8 @@ public class UserController {
 
         FirebaseToken decodedToken;
         String uid;
-
+        
+        //토큰검증
         try {
         String token = RequestUtil.getAuthorizationToken(authorization);
 
