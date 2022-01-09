@@ -10,4 +10,6 @@ Content-Type: application/json
   "name": "지인"
 }
 
+POST https://moutain.herokuapp.com/users/me
+Authorization: Bearer test
 

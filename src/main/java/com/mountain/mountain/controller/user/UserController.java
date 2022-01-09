@@ -1,10 +1,15 @@
 package com.mountain.mountain.controller.user;
 
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseToken;
 import com.mountain.mountain.controller.user.dto.RegisterUserDTO;
 import com.mountain.mountain.controller.user.dto.UserDTO;
 import com.mountain.mountain.domain.user.model.User;
 import com.mountain.mountain.domain.user.service.UserService;
+import com.mountain.mountain.exception.CustomException;
+import com.mountain.mountain.exception.ErrorCode;
 import com.mountain.mountain.util.RequestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +26,9 @@ import java.util.Random;
 public class UserController {
 
     @Autowired
+    FirebaseAuth firebaseAuth;
+
+    @Autowired
     private UserService userService;
 
     //회원 등록
@@ -28,8 +36,10 @@ public class UserController {
     public void register(@RequestHeader("Authorization") String authorization,
                          @RequestBody RegisterUserDTO registerUserDTO) {
 
+        FirebaseToken decodedToken;
         String uid;
-
+        
+        //토큰검증
         try {
         String token = RequestUtil.getAuthorizationToken(authorization);
 
@@ -48,14 +58,34 @@ public class UserController {
                         
                 uid = generatedString;
 
-                userService.register(uid, registerUserDTO);
+                userService.register(uid, registerUserDTO.getName());
 
+            } else {
+                decodedToken = firebaseAuth.verifyIdToken(token);
+                log.info("1");
+                uid = decodedToken.getUid();
+                log.info("2");
             }
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | FirebaseAuthException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
                     "{\"code\":\"INVALID_TOKEN\", \"message\":\"" + e.getMessage() + "\"}");
+
         }
 
+        // 등록된 사용자인지 조회
+        try {
+            userService.loadUserByUsername(uid);
+            log.info("3");
+            throw new CustomException(ErrorCode.EXIST_USER);
+        } catch (CustomException e) {
+            // 등록안된 사용자
+        }
+
+        // 사용자 등록
+        userService.register(
+                uid,
+                registerUserDTO.getName()
+        );
 
     }
 
