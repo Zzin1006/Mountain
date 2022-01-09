@@ -10,7 +10,6 @@ import lombok.Data;
 public class RegisterCommuDTO {
 
 
-    private User writerId;
 
     private Long cateId;
 
@@ -19,10 +18,4 @@ public class RegisterCommuDTO {
     private String title;
 
 
-    public RegisterCommuDTO(User writerId, Long cateId, String content, String title) {
-        this.writerId = writerId;
-        this.cateId = cateId;
-        this.content = content;
-        this.title = title;
-    }
 }

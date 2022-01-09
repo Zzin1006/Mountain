@@ -2,6 +2,7 @@ package com.mountain.mountain.domain.community.service;
 
 import com.mountain.mountain.controller.community.dto.RegisterCommuDTO;
 import com.mountain.mountain.domain.category.model.Category;
+import com.mountain.mountain.domain.category.service.CategoryService;
 import com.mountain.mountain.domain.community.dao.CommunityRepository;
 import com.mountain.mountain.domain.community.model.Community;
 import com.mountain.mountain.domain.user.model.User;
@@ -19,21 +20,28 @@ public class CommunityService {
 
     @Autowired
     CommunityRepository communityRepository;
+    @Autowired
+    CategoryService categoryService;
 
-    public void registerCommu(User user, Long cateId, RegisterCommuDTO registerCommuDTO) {
 
-        Community commu = Community.builder()
+    public Community registerCommunity(RegisterCommuDTO registerCommuDTO ,User user ) {
+
+        Category category = categoryService.findCateByNo(registerCommuDTO);
+
+        Community community = Community.builder()
                 .writerId(user)
                 .title(registerCommuDTO.getTitle())
+                .cateId(category)
                 .content(registerCommuDTO.getContent())
                 .build();
 
-        communityRepository.save(commu);
+        return communityRepository.save(community);
     }
 
 
-    public Page<Community> findAllCommunity(Pageable pageable) {
+    public Page<Community> findCommunities(Pageable pageable) {
         return communityRepository.findAll(pageable);
     }
+
 }
 
