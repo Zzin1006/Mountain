@@ -62,16 +62,20 @@ public class UserController {
 
             } else {
                 decodedToken = firebaseAuth.verifyIdToken(token);
+                log.info("1");
                 uid = decodedToken.getUid();
+                log.info("2");
             }
         } catch (IllegalArgumentException | FirebaseAuthException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
                     "{\"code\":\"INVALID_TOKEN\", \"message\":\"" + e.getMessage() + "\"}");
+
         }
 
         // 등록된 사용자인지 조회
         try {
             userService.loadUserByUsername(uid);
+            log.info("3");
             throw new CustomException(ErrorCode.EXIST_USER);
         } catch (CustomException e) {
             // 등록안된 사용자
