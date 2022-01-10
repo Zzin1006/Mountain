@@ -11,6 +11,7 @@ import com.mountain.mountain.exception.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -39,9 +40,14 @@ public class CommunityService {
     }
 
 
-    public Page<Community> findCommunities(Pageable pageable) {
-        return communityRepository.findAll(pageable);
-    }
 
+    public Page<Community> findAll(Specification<Community> spec, Pageable pageable) {
+        Page<Community> communities = communityRepository.findAll(spec, pageable);
+
+        if (communities.isEmpty())
+            throw new CustomException(ErrorCode.NOT_FOUND_COMMUNITY);
+
+        return communities;
+    }
 }
 

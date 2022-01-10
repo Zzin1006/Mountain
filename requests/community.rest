@@ -3,13 +3,13 @@
 
 
 POST http://localhost:8080/communities
-Authorization: Bearer test
+Authorization: Bearer test1
 Content-Type: application/json
 
 {
-    "cateId" : "1",
-    "content" : "내용",
-    "title" : "제목"
+    "cateId" : "5",
+    "content" : "내용입니다",
+    "title" : "제목111"
 }
 
 
@@ -19,7 +19,7 @@ Content-Type: application/json
 ### Get Comminity(Success)
 
 
-GET http://localhost:8080/communities
+GET http://localhost:8080/localhost:8080/communities
 Authorization: Bearer test
 Content-Type: application/json
 
