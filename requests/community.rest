@@ -1,7 +1,6 @@
 
 ### Post Comminity(Success)
 
-
 POST http://localhost:8080/communities
 Authorization: Bearer test1
 Content-Type: application/json
@@ -12,29 +11,21 @@ Content-Type: application/json
     "title" : "제목111"
 }
 
-
-
-
-
 ### Get Comminity(Success)
 
-
-<<<<<<< HEAD
-GET http://localhost:8080/localhost:8080/communities
-=======
-GET http://localhost:8080/communities?title=제목111&cateId=1
+GET http://localhost:8080/communities?title=제목
 Authorization: Bearer test
 Content-Type: application/json
 
+### Get Comminity(Success)
 
-
-
+GET http://localhost:8080/communities
+Authorization: Bearer test
+Content-Type: application/json
 
 ### Delete Comminity(Success)
 
-
 DELETE http://localhost:8080/communities/11
->>>>>>> develop
 Authorization: Bearer test
 Content-Type: application/json
 

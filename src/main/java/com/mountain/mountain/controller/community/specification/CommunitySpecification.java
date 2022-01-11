@@ -1,11 +1,7 @@
 package com.mountain.mountain.controller.community.specification;
 
-import com.mountain.mountain.domain.category.model.Category;
 import com.mountain.mountain.domain.community.model.Community;
-import com.mountain.mountain.domain.user.model.User;
 import org.springframework.data.jpa.domain.Specification;
-
-import java.time.LocalDateTime;
 
 public class CommunitySpecification {
 
@@ -15,12 +11,7 @@ public class CommunitySpecification {
         //root - 제너릭에들어간 Community 객체 가리킴 , get으로 longtype 맞을때까지 꺼내올 수 있음
     }
 
-    public static Specification<Community> equalTitle(String title) {
-        return (((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("title"),title)));
-
-
+    public static Specification<Community> likeTitle(String title) {
+        return (((root, query, criteriaBuilder) -> criteriaBuilder.like(root.<String>get("title"), "%"+title+"%")));
     }
-
-
-
 }
