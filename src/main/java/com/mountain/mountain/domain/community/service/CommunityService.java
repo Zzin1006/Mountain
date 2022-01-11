@@ -40,7 +40,7 @@ public class CommunityService {
     }
 
 
-<<<<<<< HEAD
+
 
     public Page<Community> findAll(Specification<Community> spec, Pageable pageable) {
         Page<Community> communities = communityRepository.findAll(spec, pageable);
@@ -50,9 +50,8 @@ public class CommunityService {
 
         return communities;
     }
-}
 
-=======
+
     public void deleteCommunity(User user, Long commupostNo) {
         Community commu = communityRepository.findById(commupostNo)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_COMMUNITY));
@@ -64,4 +63,4 @@ public class CommunityService {
         }
     }
 }
->>>>>>> develop
+

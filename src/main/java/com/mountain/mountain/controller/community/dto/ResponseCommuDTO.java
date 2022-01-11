@@ -18,26 +18,26 @@ public class ResponseCommuDTO {
 
     private User writerId;
 
-    private Category cateId;
+    private String cateId;
 
-    private String content;
+    private LocalDateTime createdAt;
 
-    private LocalDateTime fstRegDtm;
-
-    private LocalDateTime lstUpdDtm;
+    private LocalDateTime updatedAt;
 
     private Long viewCount;
 
     private String title;
 
+    private String content;
+
     public ResponseCommuDTO(Community community) {
         this.commupostNo = community.getCommupostNo();
         this.writerId = community.getWriterId();
-        this.cateId = community.getCateId();
-        this.content = community.getContent();
-        this.fstRegDtm = community.getFstRegDtm();
-        this.lstUpdDtm = community.getLstUpdDtm();
+        this.cateId = community.getCateId().getName();
+        this.createdAt = community.getFstRegDtm();
+        this.updatedAt = community.getLstUpdDtm();
         this.viewCount = community.getViewCount();
         this.title = community.getTitle();
+        this.content = community.getContent();
     }
 }

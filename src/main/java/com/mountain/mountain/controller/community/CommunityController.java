@@ -5,10 +5,7 @@ import com.mountain.mountain.controller.community.dto.ResponseCommuDTO;
 import com.mountain.mountain.controller.community.specification.CommunitySpecification;
 import com.mountain.mountain.domain.category.model.Category;
 import com.mountain.mountain.domain.category.service.CategoryService;
-<<<<<<< HEAD
-=======
 import com.mountain.mountain.domain.community.dao.CommunityRepository;
->>>>>>> develop
 import com.mountain.mountain.domain.community.model.Community;
 import com.mountain.mountain.domain.community.service.CommunityService;
 import com.mountain.mountain.domain.user.model.User;

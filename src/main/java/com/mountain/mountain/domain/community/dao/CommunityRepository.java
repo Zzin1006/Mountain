@@ -9,11 +9,9 @@ import org.springframework.stereotype.Repository;
 
 
 
-<<<<<<< HEAD
+
 @Repository
 public interface CommunityRepository extends JpaRepository<Community, Long> , JpaSpecificationExecutor<Community> {
 
 
-=======
->>>>>>> develop
 }
