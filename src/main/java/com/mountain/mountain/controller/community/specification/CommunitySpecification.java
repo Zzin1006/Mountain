@@ -16,7 +16,11 @@ public class CommunitySpecification {
     }
 
     public static Specification<Community> equalTitle(String title) {
-        return (((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("title"), title)));
+        return (((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("title"),title)));
+
+
     }
+
+
 
 }
