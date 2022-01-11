@@ -2,19 +2,37 @@
 ### Post Comminity(Success)
 
 
-POST http://localhost:8080/communities/1
-Authorization: Bearer test
+POST http://localhost:8080/communities
+Authorization: Bearer test1
 Content-Type: application/json
 
 {
-    "cateId" : "1",
-
-    "writerId" : "지인",
-
-    "content" : "내용",
-
-    "title" : "제목"
-  
+    "cateId" : "5",
+    "content" : "내용입니다",
+    "title" : "제목111"
 }
+
+
+
+
+
+### Get Comminity(Success)
+
+
+GET http://localhost:8080/communities?title=제목111&cateId=1
+Authorization: Bearer test
+Content-Type: application/json
+
+
+
+
+
+### Delete Comminity(Success)
+
+
+DELETE http://localhost:8080/communities/11
+Authorization: Bearer test
+Content-Type: application/json
+
 
 
