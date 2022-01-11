@@ -19,7 +19,22 @@ Content-Type: application/json
 ### Get Comminity(Success)
 
 
+<<<<<<< HEAD
 GET http://localhost:8080/localhost:8080/communities
+=======
+GET http://localhost:8080/communities?title=제목111&cateId=1
+Authorization: Bearer test
+Content-Type: application/json
+
+
+
+
+
+### Delete Comminity(Success)
+
+
+DELETE http://localhost:8080/communities/11
+>>>>>>> develop
 Authorization: Bearer test
 Content-Type: application/json
 

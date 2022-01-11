@@ -5,9 +5,15 @@ import com.mountain.mountain.controller.community.dto.ResponseCommuDTO;
 import com.mountain.mountain.controller.community.specification.CommunitySpecification;
 import com.mountain.mountain.domain.category.model.Category;
 import com.mountain.mountain.domain.category.service.CategoryService;
+<<<<<<< HEAD
+=======
+import com.mountain.mountain.domain.community.dao.CommunityRepository;
+>>>>>>> develop
 import com.mountain.mountain.domain.community.model.Community;
 import com.mountain.mountain.domain.community.service.CommunityService;
 import com.mountain.mountain.domain.user.model.User;
+import com.mountain.mountain.exception.CustomException;
+import com.mountain.mountain.exception.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,6 +58,16 @@ public class CommunityController {
 
 
         return communityService.findAll(spec, pageable).map(Community -> new ResponseCommuDTO(Community));
+    }
+
+
+    // 커뮤니티글 삭제
+    @DeleteMapping("/{commupostNo}")
+    public void deleteCommunity(@PathVariable(value = "commupostNo") Long commupostNo, Authentication authentication) {
+        User user = ((User) authentication.getPrincipal());
+
+        communityService.deleteCommunity(user,commupostNo);
+
     }
 
 }

@@ -40,6 +40,7 @@ public class CommunityService {
     }
 
 
+<<<<<<< HEAD
 
     public Page<Community> findAll(Specification<Community> spec, Pageable pageable) {
         Page<Community> communities = communityRepository.findAll(spec, pageable);
@@ -51,3 +52,16 @@ public class CommunityService {
     }
 }
 
+=======
+    public void deleteCommunity(User user, Long commupostNo) {
+        Community commu = communityRepository.findById(commupostNo)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_COMMUNITY));
+
+        if(commu.getWriterId().getId().equals(user.getId())) {
+            communityRepository.delete(commu);
+        } else {
+            throw new CustomException(ErrorCode.FORBIDDEN_USER);
+        }
+    }
+}
+>>>>>>> develop
