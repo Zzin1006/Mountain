@@ -14,4 +14,8 @@ public class CommunitySpecification {
     public static Specification<Community> likeTitle(String title) {
         return (((root, query, criteriaBuilder) -> criteriaBuilder.like(root.<String>get("title"), "%"+title+"%")));
     }
+
+    public static Specification<Community> commupostNo(Long commupostNo) {
+        return ((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("commupostNo").get("id"),commupostNo));
+    }
 }

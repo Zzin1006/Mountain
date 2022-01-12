@@ -1,6 +1,7 @@
 package com.mountain.mountain.domain.community.service;
 
 import com.mountain.mountain.controller.community.dto.RegisterCommuDTO;
+import com.mountain.mountain.controller.community.dto.ResponseCommuDTO;
 import com.mountain.mountain.domain.category.model.Category;
 import com.mountain.mountain.domain.category.service.CategoryService;
 import com.mountain.mountain.domain.community.dao.CommunityRepository;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.swing.undo.CannotUndoException;
 import java.util.Optional;
 
 @Service
@@ -29,17 +31,15 @@ public class CommunityService {
 
         Category category = categoryService.findCateByNo(registerCommuDTO);
 
-        if(category != null) {
+        Community community = Community.builder()
+                .writerId(user)
+                .title(registerCommuDTO.getTitle())
+                .cateId(category)
+                .content(registerCommuDTO.getContent())
+                .viewCount(0L)
+                .build();
 
-            Community community = Community.builder()
-                    .writerId(user)
-                    .title(registerCommuDTO.getTitle())
-                    .cateId(category)
-                    .content(registerCommuDTO.getContent())
-                    .build();
-
-            return communityRepository.save(community);
-        } else throw new CustomException(ErrorCode.NOT_FOUND_CATEGORY);
+        return communityRepository.save(community);
     }
 
 
@@ -64,6 +64,20 @@ public class CommunityService {
         } else {
             throw new CustomException(ErrorCode.FORBIDDEN_USER);
         }
+    }
+
+
+
+
+    public Community findCommunityByNo(Long commupostNo) {
+
+        Community commu = communityRepository.findById(commupostNo)
+                .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_COMMUNITY));
+
+
+            commu.setViewCount(commu.getViewCount()+1L);
+            communityRepository.save(commu);
+            return commu;
     }
 }
 

@@ -46,7 +46,7 @@ public class Community {
     private LocalDateTime lstUpdDtm;
 
     @Column(name = "view_count")
-    private Long viewCount;
+    private Long viewCount = 0L;
 
     @Column(name = "title")
     private String title;
@@ -62,4 +62,5 @@ public class Community {
         this.viewCount = viewCount;
         this.title = title;
     }
+
 }

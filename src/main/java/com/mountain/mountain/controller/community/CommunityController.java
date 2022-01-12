@@ -61,4 +61,14 @@ public class CommunityController {
 
     }
 
+    // 커뮤니티글 상세조회
+    @GetMapping("/{commupostNo}")
+    public ResponseCommuDTO findCommunity (
+            @PathVariable(value = "commupostNo") Long commupostNo) {
+        return new ResponseCommuDTO(communityService.findCommunityByNo(commupostNo));
+
+    }
+
+
+
 }
