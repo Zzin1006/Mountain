@@ -29,10 +29,7 @@ public class ErrorResponse {
                         .detail(errorCode.getDetail())
                         .message(e.getMessage())
                         .build()
-
-
                 );
-
 
 
     }

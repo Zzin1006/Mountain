@@ -1,6 +1,7 @@
 package com.mountain.mountain.domain.category.service;
 
 import com.mountain.mountain.controller.category.dto.ResponseCategoryDTO;
+import com.mountain.mountain.controller.community.dto.RegisterCommuDTO;
 import com.mountain.mountain.domain.category.dao.CategoryRepository;
 import com.mountain.mountain.domain.category.model.Category;
 import com.mountain.mountain.exception.CustomException;
@@ -21,8 +22,8 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
 
 
-    public Category findCateByNo(Category cateId) throws CustomException {
-        Optional<Category> category = categoryRepository.findById(cateId.getId());
+    public Category findCateByNo(RegisterCommuDTO registerCommuDTO) throws CustomException {
+        Optional<Category> category = categoryRepository.findById(registerCommuDTO.getCateId());
         if (category.isPresent()) {
             return category.get();
         } throw new CustomException(ErrorCode.NOT_FOUND_CATEGORY);

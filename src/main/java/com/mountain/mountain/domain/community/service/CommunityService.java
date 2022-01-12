@@ -2,29 +2,56 @@ package com.mountain.mountain.domain.community.service;
 
 import com.mountain.mountain.controller.community.dto.RegisterCommuDTO;
 import com.mountain.mountain.domain.category.model.Category;
+import com.mountain.mountain.domain.category.service.CategoryService;
 import com.mountain.mountain.domain.community.dao.CommunityRepository;
 import com.mountain.mountain.domain.community.model.Community;
 import com.mountain.mountain.domain.user.model.User;
 import com.mountain.mountain.exception.CustomException;
 import com.mountain.mountain.exception.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class CommunityService {
 
     @Autowired
     CommunityRepository communityRepository;
+    @Autowired
+    CategoryService categoryService;
 
-    public void registerCommu(User user, Long cateId, RegisterCommuDTO registerCommuDTO) {
 
-        Community commu = Community.builder()
-                .writerId(user)
-                .title(registerCommuDTO.getTitle())
-                .content(registerCommuDTO.getContent())
-                .build();
+    public Community registerCommunity(RegisterCommuDTO registerCommuDTO ,User user ) {
 
-        communityRepository.save(commu);
+        Category category = categoryService.findCateByNo(registerCommuDTO);
+
+        if(category != null) {
+
+            Community community = Community.builder()
+                    .writerId(user)
+                    .title(registerCommuDTO.getTitle())
+                    .cateId(category)
+                    .content(registerCommuDTO.getContent())
+                    .build();
+
+            return communityRepository.save(community);
+        } else throw new CustomException(ErrorCode.NOT_FOUND_CATEGORY);
+    }
+
+
+
+
+    public Page<Community> findAll(Specification<Community> spec, Pageable pageable) {
+        Page<Community> communities = communityRepository.findAll(spec, pageable);
+
+        if (communities.isEmpty())
+            throw new CustomException(ErrorCode.NOT_FOUND_COMMUNITY);
+
+        return communities;
     }
 
 
@@ -39,3 +66,4 @@ public class CommunityService {
         }
     }
 }
+
