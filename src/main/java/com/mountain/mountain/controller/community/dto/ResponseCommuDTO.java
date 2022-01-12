@@ -1,6 +1,7 @@
 package com.mountain.mountain.controller.community.dto;
 
 
+import com.mountain.mountain.controller.user.dto.UserDTO;
 import com.mountain.mountain.domain.category.model.Category;
 import com.mountain.mountain.domain.community.model.Community;
 import com.mountain.mountain.domain.user.model.User;
@@ -16,9 +17,9 @@ public class ResponseCommuDTO {
 
     private Long commupostNo;
 
-    private User writerId;
+    private UserDTO user;
 
-    private String cateId;
+    private String cateName;
 
     private LocalDateTime createdAt;
 
@@ -30,14 +31,16 @@ public class ResponseCommuDTO {
 
     private String content;
 
+
     public ResponseCommuDTO(Community community) {
         this.commupostNo = community.getCommupostNo();
-        this.writerId = community.getWriterId();
-        this.cateId = community.getCateId().getName();
+        this.cateName = community.getCateId().getName();
         this.createdAt = community.getFstRegDtm();
         this.updatedAt = community.getLstUpdDtm();
         this.viewCount = community.getViewCount();
         this.title = community.getTitle();
         this.content = community.getContent();
+        this.user = new UserDTO(community.getWriterId());
     }
+
 }
