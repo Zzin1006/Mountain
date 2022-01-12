@@ -29,14 +29,17 @@ public class CommunityService {
 
         Category category = categoryService.findCateByNo(registerCommuDTO);
 
-        Community community = Community.builder()
-                .writerId(user)
-                .title(registerCommuDTO.getTitle())
-                .cateId(category)
-                .content(registerCommuDTO.getContent())
-                .build();
+        if(category != null) {
 
-        return communityRepository.save(community);
+            Community community = Community.builder()
+                    .writerId(user)
+                    .title(registerCommuDTO.getTitle())
+                    .cateId(category)
+                    .content(registerCommuDTO.getContent())
+                    .build();
+
+            return communityRepository.save(community);
+        } else throw new CustomException(ErrorCode.NOT_FOUND_CATEGORY);
     }
 
 
