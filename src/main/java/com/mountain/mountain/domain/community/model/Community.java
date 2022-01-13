@@ -1,12 +1,14 @@
 package com.mountain.mountain.domain.community.model;
 
 
+import com.mountain.mountain.controller.community.dto.RegisterCommuDTO;
 import com.mountain.mountain.domain.category.model.Category;
 import com.mountain.mountain.domain.user.model.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -42,7 +44,7 @@ public class Community {
     private LocalDateTime fstRegDtm;
 
     @Column(name = "lst_reg_dtm")
-    @LastModifiedBy
+    @UpdateTimestamp
     private LocalDateTime lstUpdDtm;
 
     @Column(name = "view_count")
@@ -63,4 +65,16 @@ public class Community {
         this.title = title;
     }
 
+
+
+    public void updatedCommunity(Community updatedGame) {
+        if(updatedGame.getCateId() != null) cateId = updatedGame.getCateId();
+        if(updatedGame.getTitle() != null) title = updatedGame.getTitle();
+        if(updatedGame.getContent() != null) content = updatedGame.getContent();
+        if(updatedGame.getWriterId() != null) writerId = updatedGame.getWriterId();
+        if(updatedGame.getViewCount() != null) viewCount = updatedGame.getViewCount();
+        if(updatedGame.getFstRegDtm() != null) fstRegDtm = updatedGame.getFstRegDtm();
+        if(updatedGame.getLstUpdDtm() == null) lstUpdDtm = updatedGame.getLstUpdDtm();
+        if(updatedGame.getCommupostNo() != null) commupostNo = updatedGame.getCommupostNo();
+    }
 }
