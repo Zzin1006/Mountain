@@ -43,4 +43,8 @@ public class ResponseCommuDTO {
         this.user = new UserDTO(community.getWriterId());
     }
 
+    public ResponseCommuDTO(Long commupostNo) {
+        this.commupostNo = commupostNo;
+    }
+
 }

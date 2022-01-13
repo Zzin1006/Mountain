@@ -36,7 +36,7 @@ public class Community {
     @JoinColumn(name = "cate_id")
     private Category cateId;
 
-    @Column(name = "content")
+    @Column(nullable = false, name = "content")
     private String content;
 
     @Column(name = "fst_reg_dtm")
@@ -50,7 +50,7 @@ public class Community {
     @Column(name = "view_count")
     private Long viewCount = 0L;
 
-    @Column(name = "title")
+    @Column(nullable = false,name = "title")
     private String title;
 
     @Builder
