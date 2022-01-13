@@ -19,6 +19,8 @@ public class ResponseCommuDTO {
 
     private UserDTO user;
 
+    private Long cateId;
+
     private String category;
 
     private LocalDateTime createdAt;
@@ -34,6 +36,7 @@ public class ResponseCommuDTO {
 
     public ResponseCommuDTO(Community community) {
         this.commupostNo = community.getCommupostNo();
+        this.cateId = community.getCateId().getId();
         this.category = community.getCateId().getName();
         this.createdAt = community.getFstRegDtm();
         this.updatedAt = community.getLstUpdDtm();

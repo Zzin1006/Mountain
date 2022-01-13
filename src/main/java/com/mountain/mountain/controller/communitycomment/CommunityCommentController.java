@@ -8,6 +8,7 @@ import com.mountain.mountain.domain.category.model.Category;
 import com.mountain.mountain.domain.category.service.CategoryService;
 import com.mountain.mountain.domain.comment.model.Comment;
 import com.mountain.mountain.domain.comment.service.CommentService;
+import com.mountain.mountain.domain.community.dao.CommunityRepository;
 import com.mountain.mountain.domain.community.model.Community;
 import com.mountain.mountain.domain.community.service.CommunityService;
 import com.mountain.mountain.domain.user.model.User;
@@ -36,10 +37,12 @@ public class CommunityCommentController {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    CommunityRepository communityRepository;
+
     // 댓글 등록
-    @PostMapping("/{cateNo}/{commuPostNum}/comments")
+    @PostMapping("/{commuPostNum}/comments")
     public ResponseCommuCommentDTO createComment (
-            @PathVariable(value = "cateNo") Long cateNo,
             @PathVariable(value = "commuPostNum") Long commuPostNum,
             @RequestBody RegisterCommuCommentDTO registerCommentDTO,
             Authentication authentication) {
@@ -47,19 +50,15 @@ public class CommunityCommentController {
         User user = ((User) authentication.getPrincipal());
         Community community = communityService.findCommunityByNo(commuPostNum);
         
-        return new ResponseCommuCommentDTO(commentService.createComment(user, cateNo, community,registerCommentDTO),community);
+        return new ResponseCommuCommentDTO(commentService.createComment(user, community,registerCommentDTO),community);
 
     }
 
     // 댓글 조회
-    @GetMapping("/{cateNo}/{commuPostNum}/comments")
+    @GetMapping("/{commuPostNum}/comments")
     public Page<ResponseCommuCommentDTO> findComments(
-            @PathVariable(value = "cateNo") Long cateNo,
             @PathVariable(value = "commuPostNum") Long commuPostNum,
             Pageable pageable) {
-
-        categoryRepository.findById(cateNo)
-        .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_CATEGORY));
 
         Community community = communityService.findCommunityByNo(commuPostNum);
 
@@ -69,6 +68,16 @@ public class CommunityCommentController {
     }
 
     //댓글 삭제
-    @DeleteMapping("/{cateNo}/{commuPostNum}/comments/{commentNo}")
-    public void deleteComments
+    @DeleteMapping("/{commuPostNum}/comments/{commentNo}")
+    public void deleteComment(
+            @PathVariable(value = "commuPostNum") Long commuPostNum,
+            @PathVariable(value = "commentNo") Long commentNo,
+            Authentication authentication) {
+
+        User user = (User) authentication.getPrincipal();
+
+        commentService.deleteCommunityComment( user,commuPostNum,commentNo);
+
+    }
+
 }
