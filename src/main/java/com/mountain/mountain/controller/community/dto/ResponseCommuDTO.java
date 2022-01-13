@@ -46,4 +46,5 @@ public class ResponseCommuDTO {
     public ResponseCommuDTO(Long commupostNo) {
         this.commupostNo = commupostNo;
     }
+
 }

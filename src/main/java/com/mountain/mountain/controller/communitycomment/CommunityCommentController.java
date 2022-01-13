@@ -1,11 +1,9 @@
-package com.mountain.mountain.controller.comment;
+package com.mountain.mountain.controller.communitycomment;
 
 
-import com.mountain.mountain.controller.comment.dto.RegisterCommentDTO;
-import com.mountain.mountain.controller.comment.dto.ResponseCommentDTO;
-import com.mountain.mountain.controller.community.dto.ResponseCommuDTO;
+import com.mountain.mountain.controller.communitycomment.dto.RegisterCommuCommentDTO;
+import com.mountain.mountain.controller.communitycomment.dto.ResponseCommuCommentDTO;
 import com.mountain.mountain.domain.category.dao.CategoryRepository;
-import com.mountain.mountain.domain.category.model.Category;
 import com.mountain.mountain.domain.category.service.CategoryService;
 import com.mountain.mountain.domain.comment.service.CommentService;
 import com.mountain.mountain.domain.community.model.Community;
@@ -15,11 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/communities")
-public class CommentController {
+public class CommunityCommentController {
 
 
     @Autowired
@@ -36,16 +32,16 @@ public class CommentController {
 
     // 댓글 등록
     @PostMapping("/{cateNo}/{commuPostNum}/comments")
-    public ResponseCommentDTO postComment (
+    public ResponseCommuCommentDTO createComment (
             @PathVariable(value = "cateNo") Long cateNo,
             @PathVariable(value = "commuPostNum") Long commuPostNum,
-            @RequestBody RegisterCommentDTO registerCommentDTO,
+            @RequestBody RegisterCommuCommentDTO registerCommentDTO,
             Authentication authentication) {
 
         User user = ((User) authentication.getPrincipal());
         Community community = communityService.findCommunityByNo(commuPostNum);
         
-        return new ResponseCommentDTO(commentService.postComment(user, cateNo, community,registerCommentDTO));
+        return new ResponseCommuCommentDTO(commentService.createComment(user, cateNo, community,registerCommentDTO),community);
 
     }
 

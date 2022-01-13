@@ -32,19 +32,19 @@ public class Comment {
     @JoinColumn(name = "uid")
     private User user;
 
-    @ManyToOne // 데이터 n : 1 매핑 하나의 산에 여러개 댓글
+    @ManyToOne(fetch = FetchType.LAZY)// 데이터 n : 1 매핑 하나의 산에 여러개 댓글
     @JoinColumn(name = "mountain_no")
     private Mountain mountainNo;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "commu_no")
     private Community commuNo;
 
-    @ManyToOne
-    @JoinColumn(name = "cate_id")
-    private Category cateId;
+    //@ManyToOne
+    //@JoinColumn(name = "cate_id")
+    //private Category cateId;
 
-    @Column(name = "comment_content", length = 300)
+    @Column(name = "comment_content", length = 300, nullable = false)
     private String commentContent;
 
     @Column(name = "fst_reg_dtm")
@@ -62,7 +62,7 @@ public class Comment {
         this.user = user;
         this.mountainNo = mountainNo;
         this.commuNo = commuNo;
-        this.cateId = cateId;
+        //this.cateId = cateId;
         this.commentContent = commentContent;
         this.fstRegDtm = fstRegDtm;
         this.lstUpdDtm = lstUpdDtm;

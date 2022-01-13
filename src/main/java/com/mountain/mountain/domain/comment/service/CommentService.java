@@ -1,7 +1,6 @@
 package com.mountain.mountain.domain.comment.service;
 
-import com.mountain.mountain.controller.comment.dto.RegisterCommentDTO;
-import com.mountain.mountain.controller.community.dto.RegisterCommuDTO;
+import com.mountain.mountain.controller.communitycomment.dto.RegisterCommuCommentDTO;
 import com.mountain.mountain.domain.category.dao.CategoryRepository;
 import com.mountain.mountain.domain.category.model.Category;
 import com.mountain.mountain.domain.comment.dao.CommentRespository;
@@ -23,7 +22,7 @@ public class CommentService {
     CategoryRepository categoryRepository;
 
 
-    public Comment postComment(User user, Long cateNo, Community community,RegisterCommentDTO registerCommentDTO) {
+    public Comment createComment(User user, Long cateNo, Community community, RegisterCommuCommentDTO registerCommentDTO) {
 
         Optional<Category> category = categoryRepository.findById(cateNo);
 

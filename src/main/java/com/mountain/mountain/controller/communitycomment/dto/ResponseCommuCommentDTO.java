@@ -1,20 +1,17 @@
-package com.mountain.mountain.controller.comment.dto;
+package com.mountain.mountain.controller.communitycomment.dto;
 
 import com.mountain.mountain.controller.category.dto.ResponseCategoryDTO;
+import com.mountain.mountain.controller.community.dto.CommunityDTO;
 import com.mountain.mountain.controller.community.dto.ResponseCommuDTO;
 import com.mountain.mountain.controller.user.dto.UserDTO;
-import com.mountain.mountain.domain.category.model.Category;
 import com.mountain.mountain.domain.comment.model.Comment;
 import com.mountain.mountain.domain.community.model.Community;
-import com.mountain.mountain.domain.mountain.model.Mountain;
-import com.mountain.mountain.domain.user.model.User;
 import lombok.Data;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
-public class ResponseCommentDTO {
+public class ResponseCommuCommentDTO {
 
     private Long commentNo;
 
@@ -22,9 +19,7 @@ public class ResponseCommentDTO {
 
     //private Mountain mountainNo;
 
-    private Long commuNo;
-
-    private ResponseCategoryDTO cateId;
+    private CommunityDTO community;
 
     private String commentContent;
 
@@ -32,14 +27,13 @@ public class ResponseCommentDTO {
 
     private LocalDateTime updateAt;
 
-    public ResponseCommentDTO(Comment comment) {
+    public ResponseCommuCommentDTO(Comment comment, Community community) {
         this.commentNo = comment.getCommentNo();
         this.user = new UserDTO(comment.getUser());
         this.commentContent = comment.getCommentContent();
         this.createdAt = comment.getFstRegDtm();
         this.updateAt = comment.getLstUpdDtm();
-        this.cateId = new ResponseCategoryDTO(comment.getCateId());
-        this.commuNo = comment.getCommuNo().getCommupostNo();
+        this.community = new CommunityDTO(community);
     }
 }
 
