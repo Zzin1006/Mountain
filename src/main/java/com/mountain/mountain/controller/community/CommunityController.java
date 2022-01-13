@@ -3,6 +3,7 @@ package com.mountain.mountain.controller.community;
 import com.mountain.mountain.controller.community.dto.RegisterCommuDTO;
 import com.mountain.mountain.controller.community.dto.ResponseCommuDTO;
 import com.mountain.mountain.controller.community.specification.CommunitySpecification;
+import com.mountain.mountain.domain.community.dao.CommunityRepository;
 import com.mountain.mountain.domain.community.model.Community;
 import com.mountain.mountain.domain.community.service.CommunityService;
 import com.mountain.mountain.domain.user.model.User;
@@ -23,6 +24,9 @@ public class CommunityController {
 
     @Autowired
     CommunityService communityService;
+
+    @Autowired
+    CommunityRepository communityRepository;
 
 
     // 커뮤니티 글 등록
@@ -63,9 +67,21 @@ public class CommunityController {
 
     // 커뮤니티글 상세조회
     @GetMapping("/{commupostNo}")
-    public ResponseCommuDTO findCommunity (
-            @PathVariable(value = "commupostNo") Long commupostNo) {
+    public ResponseCommuDTO findCommunity ( @PathVariable(value = "commupostNo") Long commupostNo) {
         return new ResponseCommuDTO(communityService.findCommunityByNo(commupostNo));
+    }
+
+
+
+    // 커뮤니티글 수정
+    @PatchMapping("/{commupostNo}")
+    public void updateCommunity (
+            @PathVariable(value = "commupostNo") Long commupostNo,
+            @RequestBody RegisterCommuDTO registerCommuDTO,
+            Authentication authentication) {
+
+        User user = ((User) authentication.getPrincipal());
+        communityService.updateCommunity(user, commupostNo , registerCommuDTO);
 
     }
 
