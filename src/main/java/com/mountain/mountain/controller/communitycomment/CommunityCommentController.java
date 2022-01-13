@@ -53,7 +53,7 @@ public class CommunityCommentController {
 
     // 댓글 조회
     @GetMapping("/{cateNo}/{commuPostNum}/comments")
-    public Page<ResponseCommuCommentDTO> findcomments(
+    public Page<ResponseCommuCommentDTO> findComments(
             @PathVariable(value = "cateNo") Long cateNo,
             @PathVariable(value = "commuPostNum") Long commuPostNum,
             Pageable pageable) {
@@ -67,4 +67,8 @@ public class CommunityCommentController {
 
 
     }
+
+    //댓글 삭제
+    @DeleteMapping("/{cateNo}/{commuPostNum}/comments/{commentNo}")
+    public void deleteComments
 }
