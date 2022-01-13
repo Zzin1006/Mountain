@@ -10,6 +10,7 @@ import com.mountain.mountain.domain.community.model.Community;
 import com.mountain.mountain.domain.user.model.User;
 import com.mountain.mountain.exception.CustomException;
 import com.mountain.mountain.exception.ErrorCode;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +21,7 @@ import java.util.LongSummaryStatistics;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class CommentService {
 
     @Autowired
@@ -63,10 +65,12 @@ public class CommentService {
                         .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_REPLY));
 
 
-        if(comment.getUser().equals(user) && comment.getCommuNo().getCommupostNo().equals(community.getCommupostNo())) {
-            commentRespository.delete(comment);
-        } else {
+        if(!comment.getUser().getId().equals(user.getId())) {
             throw new CustomException(ErrorCode.FORBIDDEN_USER);
+        } else if(!comment.getCommuNo().equals(community)){
+            throw new CustomException(ErrorCode.BAD_REQUEST_PARAM);
+        } else {
+            commentRespository.delete(comment);
         }
     }
 
