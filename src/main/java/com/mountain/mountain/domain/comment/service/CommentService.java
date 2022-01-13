@@ -8,7 +8,10 @@ import com.mountain.mountain.domain.comment.model.Comment;
 import com.mountain.mountain.domain.community.model.Community;
 import com.mountain.mountain.domain.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -22,6 +25,7 @@ public class CommentService {
     CategoryRepository categoryRepository;
 
 
+    @Transactional
     public Comment createComment(User user, Long cateNo, Community community, RegisterCommuCommentDTO registerCommentDTO) {
 
         Optional<Category> category = categoryRepository.findById(cateNo);
@@ -36,6 +40,10 @@ public class CommentService {
         return commentRespository.save(comment);
     };
 
+    @Transactional
+    public Page<Comment> getCommunityCommentList(Community community, Pageable pageable) {
+        return commentRespository.findByCommuNo(community,pageable);
+    }
 
 }
 
