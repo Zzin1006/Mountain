@@ -40,10 +40,6 @@ public class Comment {
     @JoinColumn(name = "commu_no")
     private Community commuNo;
 
-    //@ManyToOne
-    //@JoinColumn(name = "cate_id")
-    //private Category cateId;
-
     @Column(name = "comment_content", length = 300, nullable = false)
     private String commentContent;
 
@@ -62,7 +58,6 @@ public class Comment {
         this.user = user;
         this.mountainNo = mountainNo;
         this.commuNo = commuNo;
-        //this.cateId = cateId;
         this.commentContent = commentContent;
         this.fstRegDtm = fstRegDtm;
         this.lstUpdDtm = lstUpdDtm;
