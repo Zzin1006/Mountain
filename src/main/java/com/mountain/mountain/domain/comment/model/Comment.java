@@ -5,6 +5,7 @@ import com.mountain.mountain.domain.category.model.Category;
 import com.mountain.mountain.domain.community.model.Community;
 import com.mountain.mountain.domain.mountain.model.Mountain;
 import com.mountain.mountain.domain.user.model.User;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -54,4 +55,16 @@ public class Comment {
     @UpdateTimestamp
     private LocalDateTime lstUpdDtm;
 
+
+    @Builder
+    public Comment(Long commentNo, User user, Mountain mountainNo, Community commuNo, Category cateId, String commentContent, LocalDateTime fstRegDtm, LocalDateTime lstUpdDtm) {
+        this.commentNo = commentNo;
+        this.user = user;
+        this.mountainNo = mountainNo;
+        this.commuNo = commuNo;
+        this.cateId = cateId;
+        this.commentContent = commentContent;
+        this.fstRegDtm = fstRegDtm;
+        this.lstUpdDtm = lstUpdDtm;
+    }
 }
