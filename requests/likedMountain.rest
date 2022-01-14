@@ -1,13 +1,12 @@
 
-### Post Comminity(Success)
+### liked Mountain(Success)
 
 
-POST http://localhost:8080/communities/53/comments
+POST http://localhost:8080/likes/me/mountains
 Authorization: Bearer test1
 Content-Type: application/json
-
 {
-    "content" : "댓글수정***"
+    "mountainNo" : 1
 }
 
 
