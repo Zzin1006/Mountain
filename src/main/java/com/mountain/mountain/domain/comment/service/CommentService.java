@@ -74,6 +74,26 @@ public class CommentService {
         }
     }
 
+    @Transactional
+    public void updateCommunityComment(User user, Long commuPostNum, Long commentNo, RegisterCommuCommentDTO registerCommentDTO) {
+
+        Community community = communityRepository.findById(commuPostNum)
+                .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_COMMUNITY));
+
+        Comment comment =
+                commentRespository.findById(commentNo)
+                        .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_REPLY));
+
+        if(!comment.getUser().getId().equals(user.getId())) {
+            throw new CustomException(ErrorCode.FORBIDDEN_USER);
+        } else if(!comment.getCommuNo().equals(community)){
+            throw new CustomException(ErrorCode.BAD_REQUEST_PARAM);
+        } else {
+            comment.setCommentContent(registerCommentDTO.getContent());
+            commentRespository.save(comment);
+        }
+
+    }
 }
 
 
