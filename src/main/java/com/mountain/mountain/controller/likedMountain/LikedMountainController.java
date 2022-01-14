@@ -23,4 +23,17 @@ public class LikedMountainController {
         User user = ((User) authentication.getPrincipal());
         likedMountainService.addMountain(user,likedMountainDTO);
     }
+
+
+    //찜한산 취소
+    @DeleteMapping("/{mountainNo}")
+    public void deleteMountain(
+            @PathVariable(value = "mountainNo") Long mountainNo,
+            Authentication authentication) {
+
+        User user = (User) authentication.getPrincipal();
+        likedMountainService.deleteMountain(user,mountainNo);
+
+    }
+
 }

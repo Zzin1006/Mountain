@@ -45,4 +45,22 @@ public class LikedMountainService {
         } else throw new CustomException(ErrorCode.NOT_FOUND_MOUNTAIN);
 
     }
+
+    @Transactional
+    public void deleteMountain(User user, Long mountainNo) {
+
+        Optional<Mountain> mountain = mountainRepository.findById(mountainNo);
+
+        if(mountain.isPresent()) {
+            Likedmountain likedmountain = likedMountainRepository.findByMountainNoAndUser(mountain.get(),user);
+            likedMountainRepository.delete(likedmountain);
+
+        } else throw new CustomException(ErrorCode.NOT_FOUND_MOUNTAIN);
+
+    }
+
+
+
+
+
 }
