@@ -2,6 +2,7 @@ package com.mountain.mountain.controller.mountain;
 
 
 
+import com.mountain.mountain.controller.community.dto.ResponseCommuDTO;
 import com.mountain.mountain.controller.mountain.dto.ResponseMountainDTO;
 import com.mountain.mountain.controller.mountain.specification.MountainSpecification;
 import com.mountain.mountain.domain.mountain.model.Mountain;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/mountains")
@@ -36,6 +39,9 @@ public class MountainController {
 
     }
 
-
+    @GetMapping("/{mountainNo}")
+    public ResponseMountainDTO findMountainDetail(@PathVariable(value = "mountainNo") Long mountainNo) {
+        return new ResponseMountainDTO(mountainService.findMountainDetail(mountainNo));
+    }
 }
 

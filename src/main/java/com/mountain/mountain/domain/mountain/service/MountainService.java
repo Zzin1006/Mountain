@@ -1,7 +1,6 @@
 package com.mountain.mountain.domain.mountain.service;
 
 
-import com.mountain.mountain.controller.mountain.dto.ResponseMountainDTO;
 import com.mountain.mountain.domain.community.model.Community;
 import com.mountain.mountain.domain.mountain.dao.MountainRepository;
 import com.mountain.mountain.domain.mountain.model.Mountain;
@@ -13,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class MountainService {
@@ -29,4 +30,11 @@ public class MountainService {
         return mountains;
     }
 
+    @Transactional
+    public Mountain findMountainDetail(Long mountainNo) {
+
+        Mountain mountain = mountainRepository.findById(mountainNo)
+                .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_MOUNTAIN));
+        return mountain;
+    }
 }
