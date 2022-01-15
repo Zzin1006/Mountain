@@ -1,12 +1,15 @@
 package com.mountain.mountain.domain.comment.service;
 
 import com.mountain.mountain.controller.communitycomment.dto.RegisterCommuCommentDTO;
+import com.mountain.mountain.controller.mountainComment.dto.RegisterMTCommentDTO;
 import com.mountain.mountain.domain.category.dao.CategoryRepository;
 import com.mountain.mountain.domain.category.model.Category;
 import com.mountain.mountain.domain.comment.dao.CommentRespository;
 import com.mountain.mountain.domain.comment.model.Comment;
 import com.mountain.mountain.domain.community.dao.CommunityRepository;
 import com.mountain.mountain.domain.community.model.Community;
+import com.mountain.mountain.domain.mountain.dao.MountainRepository;
+import com.mountain.mountain.domain.mountain.model.Mountain;
 import com.mountain.mountain.domain.user.model.User;
 import com.mountain.mountain.exception.CustomException;
 import com.mountain.mountain.exception.ErrorCode;
@@ -32,6 +35,9 @@ public class CommentService {
 
     @Autowired
     CommunityRepository communityRepository;
+
+    @Autowired
+    MountainRepository mountainRepository;
 
 
     @Transactional
@@ -74,7 +80,19 @@ public class CommentService {
         }
     }
 
+    @Transactional
+    public Comment createMTComment(User user, Long mountainNo, RegisterMTCommentDTO registerMTCommentDTO) {
+
+        Mountain mountain = mountainRepository.findById(mountainNo)
+                .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_MOUNTAIN));
+
+        Comment comment = Comment.builder()
+                .commentContent(registerMTCommentDTO.getContent())
+                .mountainNo(mountain)
+                .user(user)
+                .build();
+
+        return commentRespository.save(comment);
+    }
 }
-
-
 
