@@ -43,7 +43,7 @@ public class MountainCommentController {
 
     // MT 댓글 수정
     @PatchMapping("/{mountainNo}/comments/{commentNo}")
-    public ResponseMTCommentDTO updateMTComment (
+    public void updateMTComment (
             @PathVariable(value = "mountainNo")Long mountainNo,
             @PathVariable(value = "commentNo")Long commentNo,
             @RequestBody RegisterMTCommentDTO registerMTCommentDTO,
@@ -51,7 +51,7 @@ public class MountainCommentController {
 
         User user = (User) authentication.getPrincipal();
 
-        commentService.
+        commentService.updateMTComment(user, mountainNo,commentNo,registerMTCommentDTO);
 
     }
 
