@@ -17,8 +17,6 @@ public class ResponseCommuCommentDTO {
 
     private UserDTO user;
 
-    //private Mountain mountainNo;
-
     private CommunityDTO community;
 
     private String commentContent;
