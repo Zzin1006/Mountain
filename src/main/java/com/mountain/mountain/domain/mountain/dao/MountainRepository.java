@@ -1,6 +1,5 @@
 package com.mountain.mountain.domain.mountain.dao;
 
-
 import com.mountain.mountain.domain.mountain.model.Mountain;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,5 +11,4 @@ import org.springframework.stereotype.Repository;
 public interface MountainRepository extends JpaRepository<Mountain,Long> {
 
     Page<Mountain> findAll(Specification<Mountain> spec, Pageable pageable);
-
 }

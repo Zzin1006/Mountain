@@ -1,33 +1,42 @@
 
 ### Post Comminity(Success)
 
-POST http://localhost:8080/communities
+
+POST http://localhost:8080/communities/53/comments
 Authorization: Bearer test1
 Content-Type: application/json
 
 {
-    "cateId" : "5",
-    "content" : "내용입니다",
-    "title" : "제목111"
+    "content" : "댓글수정***"
 }
 
-### Get Comminity(Success)
 
-GET http://localhost:8080/communities?title=제목
-Authorization: Bearer test
-Content-Type: application/json
 
-### Get Comminity(Success)
 
-GET http://localhost:8080/communities
-Authorization: Bearer test
-Content-Type: application/json
-
-### Delete Comminity(Success)
-
-DELETE http://localhost:8080/communities/11
+### Get ComminityComments(Success)
+GET http://localhost:8080/communities/53/comments
 Authorization: Bearer test
 Content-Type: application/json
 
 
+
+
+
+### Delete ComminityComments(Success)
+DELETE http://localhost:8080/communities/53/comments/30
+Authorization: Bearer test2
+Content-Type: application/json
+
+
+
+
+
+### UPDATE Comminity details(Success)
+PATCH  http://localhost:8080/communities/53/comments/26
+Authorization: Bearer test1
+Content-Type: application/json
+
+{
+    "content" : "댓글수정***"
+}
 

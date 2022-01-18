@@ -11,6 +11,7 @@ public enum ErrorCode {
     BAD_REQUEST_PARAM(HttpStatus.BAD_REQUEST, "잘못된 요청입니다."),
 
     EXIST_USER(HttpStatus.BAD_REQUEST, "이미 등록된 유저입니다."),
+    EXIST_MOUNTAIN(HttpStatus.BAD_REQUEST, "이미 좋아요한 산입니다."),
     UNAUTHORIZED_USER(HttpStatus.UNAUTHORIZED, "해당 요청은 로그인이 필요합니다."),
     FORBIDDEN_USER(HttpStatus.FORBIDDEN, "해당 요청에 권한이 없습니다."),
 

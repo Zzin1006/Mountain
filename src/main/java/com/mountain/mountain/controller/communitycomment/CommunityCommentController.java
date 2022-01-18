@@ -67,7 +67,7 @@ public class CommunityCommentController {
 
     }
 
-    //댓글 삭제
+    // 댓글 삭제
     @DeleteMapping("/{commuPostNum}/comments/{commentNo}")
     public void deleteComment(
             @PathVariable(value = "commuPostNum") Long commuPostNum,
@@ -77,6 +77,21 @@ public class CommunityCommentController {
         User user = (User) authentication.getPrincipal();
 
         commentService.deleteCommunityComment( user,commuPostNum,commentNo);
+
+    }
+
+
+
+    // 댓글 수정
+    @PatchMapping("/{commuPostNum}/comments/{commentNo}")
+    public void updateCommunityComment (
+            @PathVariable(value = "commuPostNum") Long commuPostNum,
+            @PathVariable(value = "commentNo") Long commentNo,
+            @RequestBody RegisterCommuCommentDTO registerCommentDTO,
+            Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+
+        commentService.updateCommunityComment( user, commuPostNum, commentNo,registerCommentDTO);
 
     }
 
