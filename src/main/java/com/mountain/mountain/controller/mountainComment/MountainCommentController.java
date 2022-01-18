@@ -17,6 +17,8 @@ public class MountainCommentController {
     @Autowired
     CommentService commentService;
 
+
+    // MT 댓글작성
     @PostMapping("/{mountainNo}/comments")
     public ResponseMTCommentDTO createMTComment (@PathVariable(value = "mountainNo")Long mountainNo,
                                                  @RequestBody RegisterMTCommentDTO registerMTCommentDTO,
@@ -26,4 +28,17 @@ public class MountainCommentController {
         return new ResponseMTCommentDTO(commentService.createMTComment(user, mountainNo, registerMTCommentDTO));
 
     }
+
+    // MT 댓글 삭제
+    @DeleteMapping("/{mountainNo}/comments/{commentNo}")
+    public void deleteMtComment (
+            @PathVariable(value = "mountainNo")Long mountainNo,
+            @PathVariable(value = "commentNo")Long commentNo,
+            Authentication authentication) {
+
+        User user = (User) authentication.getPrincipal();
+
+        commentService.deleteMTComment(user, mountainNo, commentNo);
+    }
+
 }

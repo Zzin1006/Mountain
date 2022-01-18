@@ -113,5 +113,23 @@ public class CommentService {
 
         return commentRespository.save(comment);
     }
+
+    @Transactional
+    public void deleteMTComment(User user, Long mountainNo, Long commentNo) {
+
+        Mountain mountain = mountainRepository.findById(mountainNo)
+                .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_MOUNTAIN));
+
+        Comment comment = commentRespository.findById(commentNo)
+                .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_REPLY));
+
+        if(!comment.getUser().getId().equals(user.getId())) {
+            throw new CustomException(ErrorCode.FORBIDDEN_USER);
+        } else if (!comment.getMountainNo().equals(mountain)) {
+            throw new CustomException(ErrorCode.BAD_REQUEST_PARAM);
+        } else {
+            commentRespository.delete(comment);
+        }
+    }
 }
 
