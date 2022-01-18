@@ -14,6 +14,7 @@ import com.mountain.mountain.domain.user.model.User;
 import com.mountain.mountain.exception.CustomException;
 import com.mountain.mountain.exception.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.jni.Error;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -51,16 +52,18 @@ public class CommentService {
                 .build();
 
         return commentRespository.save(comment);
-    };
+    }
+
+    ;
 
     @Transactional
     public Page<Comment> getCommunityCommentList(Community community, Pageable pageable) {
-        return commentRespository.findByCommuNo(community,pageable);
+        return commentRespository.findByCommuNo(community, pageable);
     }
 
 
     @Transactional
-    public void deleteCommunityComment(User user, Long commuPostNum , Long commentNo) {
+    public void deleteCommunityComment(User user, Long commuPostNum, Long commentNo) {
 
         Community community =
                 communityRepository.findById(commuPostNum)
@@ -68,12 +71,12 @@ public class CommentService {
 
         Comment comment =
                 commentRespository.findById(commentNo)
-                        .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_REPLY));
+                        .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_REPLY));
 
 
-        if(!comment.getUser().getId().equals(user.getId())) {
+        if (!comment.getUser().getId().equals(user.getId())) {
             throw new CustomException(ErrorCode.FORBIDDEN_USER);
-        } else if(!comment.getCommuNo().equals(community)){
+        } else if (!comment.getCommuNo().equals(community)) {
             throw new CustomException(ErrorCode.BAD_REQUEST_PARAM);
         } else {
             commentRespository.delete(comment);
@@ -103,7 +106,7 @@ public class CommentService {
     @Transactional
     public Comment createMTComment(User user, Long mountainNo, RegisterMTCommentDTO registerMTCommentDTO) {
         Mountain mountain = mountainRepository.findById(mountainNo)
-                .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_MOUNTAIN));
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MOUNTAIN));
 
         Comment comment = Comment.builder()
                 .commentContent(registerMTCommentDTO.getContent())
@@ -118,12 +121,12 @@ public class CommentService {
     public void deleteMTComment(User user, Long mountainNo, Long commentNo) {
 
         Mountain mountain = mountainRepository.findById(mountainNo)
-                .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_MOUNTAIN));
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MOUNTAIN));
 
         Comment comment = commentRespository.findById(commentNo)
-                .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_REPLY));
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_REPLY));
 
-        if(!comment.getUser().getId().equals(user.getId())) {
+        if (!comment.getUser().getId().equals(user.getId())) {
             throw new CustomException(ErrorCode.FORBIDDEN_USER);
         } else if (!comment.getMountainNo().equals(mountain)) {
             throw new CustomException(ErrorCode.BAD_REQUEST_PARAM);
@@ -131,5 +134,23 @@ public class CommentService {
             commentRespository.delete(comment);
         }
     }
-}
 
+
+    @Transactional
+    public void updateMTComment(User user, Long mountainNo, Long commentNo, RegisterMTCommentDTO registerMTCommentDTO) {
+        Mountain mountain = mountainRepository.findById(mountainNo)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MOUNTAIN));
+
+        Comment comment = commentRespository.findById(commentNo)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_REPLY));
+
+        if (!comment.getUser().getId().equals(user.getId())) {
+            throw new CustomException(ErrorCode.FORBIDDEN_USER);
+        } else if (!comment.getMountainNo().equals(mountain)) {
+            throw new CustomException(ErrorCode.BAD_REQUEST_PARAM);
+        } else {
+            comment.setCommentContent(registerMTCommentDTO.getContent());
+            commentRespository.save(comment);
+        }
+    }
+}

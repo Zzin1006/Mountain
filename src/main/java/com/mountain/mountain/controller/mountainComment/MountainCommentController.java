@@ -41,4 +41,19 @@ public class MountainCommentController {
         commentService.deleteMTComment(user, mountainNo, commentNo);
     }
 
+    // MT 댓글 수정
+    @PatchMapping("/{mountainNo}/comments/{commentNo}")
+    public void updateMTComment (
+            @PathVariable(value = "mountainNo")Long mountainNo,
+            @PathVariable(value = "commentNo")Long commentNo,
+            @RequestBody RegisterMTCommentDTO registerMTCommentDTO,
+            Authentication authentication) {
+
+        User user = (User) authentication.getPrincipal();
+
+        commentService.updateMTComment(user, mountainNo,commentNo,registerMTCommentDTO);
+
+    }
+
+
 }
