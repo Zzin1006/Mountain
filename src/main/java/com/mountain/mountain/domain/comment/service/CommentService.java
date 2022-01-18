@@ -79,10 +79,29 @@ public class CommentService {
             commentRespository.delete(comment);
         }
     }
+  
+    public void updateCommunityComment(User user, Long commuPostNum, Long commentNo, RegisterCommuCommentDTO registerCommentDTO) {
+
+      Community community = communityRepository.findById(commuPostNum)
+              .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_COMMUNITY));
+
+      Comment comment =
+              commentRespository.findById(commentNo)
+                      .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_REPLY));
+
+      if(!comment.getUser().getId().equals(user.getId())) {
+          throw new CustomException(ErrorCode.FORBIDDEN_USER);
+      } else if(!comment.getCommuNo().equals(community)){
+          throw new CustomException(ErrorCode.BAD_REQUEST_PARAM);
+      } else {
+          comment.setCommentContent(registerCommentDTO.getContent());
+          commentRespository.save(comment);
+      }
+
+  }
 
     @Transactional
     public Comment createMTComment(User user, Long mountainNo, RegisterMTCommentDTO registerMTCommentDTO) {
-
         Mountain mountain = mountainRepository.findById(mountainNo)
                 .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_MOUNTAIN));
 

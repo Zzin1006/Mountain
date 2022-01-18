@@ -3,11 +3,15 @@ package com.mountain.mountain.domain.likedmountain.model;
 
 import com.mountain.mountain.domain.mountain.model.Mountain;
 import com.mountain.mountain.domain.user.model.User;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+
+
 
 @Entity
 @Getter
@@ -29,4 +33,10 @@ public class Likedmountain {
     private Mountain mountainNo;
 
 
+    @Builder
+    public Likedmountain(Long id, User user, Mountain mountainNo) {
+        this.id = id;
+        this.user = user;
+        this.mountainNo = mountainNo;
+    }
 }
