@@ -35,7 +35,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: skdksldk1485/mountain
-          ref: develop
           path: ./frontend
 
       
