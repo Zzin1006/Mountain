@@ -18,6 +18,9 @@ public class Mountain {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mountainNo;
 
+    @Column(name = "mountain_name")
+    private String mountainName;
+
     @Column(name = "org_url")
     private String orgUrl;
 

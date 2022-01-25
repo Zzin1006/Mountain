@@ -10,6 +10,8 @@ public class ResponseMountainDTO {
 
     private Long mountainNo;
 
+    private String mountainName;
+
     private String orgUrl;
 
     private Double lat;
@@ -30,6 +32,7 @@ public class ResponseMountainDTO {
 
     public ResponseMountainDTO(Mountain mountain) {
         this.mountainNo = mountain.getMountainNo();
+        this.mountainName = mountain.getMountainName();
         this.orgUrl = mountain.getOrgUrl();
         this.lat = mountain.getLat();
         this.lon = mountain.getLon();
