@@ -44,7 +44,7 @@ jobs:
         run: |
           cd frontend
           npm install -g @craco/craco
-          npm install
+          npm ci
           npm run build
           cd ..
           cp -r frontend/build/* src/main/resources/static/
