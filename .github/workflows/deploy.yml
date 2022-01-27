@@ -44,6 +44,7 @@ jobs:
         run: |
           cd frontend
           rm package-lock.json
+          export REACT_APP_KEY = AIzaSyD2b6FnC66ExbnsIRKi605t7_bptAE_3aw
           npm install
           npm run build
           cd ..
