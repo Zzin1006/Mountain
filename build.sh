@@ -1,5 +1,6 @@
 #!/bin/sh
 cd frontend
+npm install -g craco
 npm install
 npm run build
 cd ..
