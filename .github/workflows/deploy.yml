@@ -42,7 +42,12 @@ jobs:
       # build 하기
       - name: build frontend to resources
         run: |
-          sh build.sh
+          cd frontend
+          npm install -g @craco/craco
+          npm install
+          npm run build
+          cd ..
+          cp -r frontend/build/* src/main/resources/static/
       
       # heroku에 배포하기
       - name: deploy to heroku
