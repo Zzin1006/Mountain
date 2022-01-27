@@ -32,9 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated() // 모든 요청이 인증되어야한다.
                 .and()
                 .addFilterBefore(authFilterContainer.getFilter(),
-                        UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling() //예외처리 기능 작동
-                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)); // 인증실패시처리
+                        UsernamePasswordAuthenticationFilter.class);
     };
 
     @Override
