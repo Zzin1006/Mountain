@@ -1,0 +1,15 @@
+
+### Post User(Success)
+
+
+POST http://localhost:8080/users
+Authorization: Bearer test
+Content-Type: application/json
+
+{
+  "name": "지인"
+}
+
+POST https://moutain.herokuapp.com/users/me
+Authorization: Bearer test
+

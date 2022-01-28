@@ -1,0 +1,21 @@
+
+
+
+### Get mountainsList(Success)
+
+
+GET http://localhost:8080/mountains?addressDetail=부
+Authorization: Bearer test
+Content-Type: application/json
+
+
+
+
+
+### Get mountain details(Success)
+
+
+GET http://localhost:8080/mountains/2
+Authorization: Bearer test1
+Content-Type: application/json
+
