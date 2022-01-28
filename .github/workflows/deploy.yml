@@ -50,6 +50,7 @@ jobs:
           npm run build
           cd ..
           cp -r frontend/build/* src/main/resources/static/
+
       
       # heroku에 배포하기
       - name: deploy to heroku
@@ -58,23 +59,3 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "moutain" #
           heroku_email: "jiinahn92@gmail.com"
-          
-      # - name: Heroku deploy
-      #   run: |
-      #     cat > ~/.netrc <<EOF
-      #       machine api.heroku.com
-      #         login $HEROKU_EMAIL
-      #         password $HEROKU_API_KEY
-      #       machine git.heroku.com
-      #         login $HEROKU_EMAIL 
-      #         password $HEROKU_API_KEY
-      #     EOF
-      #     cat ~/.netrc
-      #     heroku git:remote --app moutain
-      #     git remote -v
-      #     git push heroku HEAD:master
-      #   env:
-      #     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      #     HEROKU_EMAIL: jiinahn92@gmail.com
-      #     HEROKU_APP_NAME: moutain
-
