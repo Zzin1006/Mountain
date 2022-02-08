@@ -153,4 +153,11 @@ public class CommentService {
             commentRespository.save(comment);
         }
     }
+
+
+
+    @Transactional
+    public Page<Comment> getMountainCommentList(Mountain mountain, Pageable pageable) {
+        return commentRespository.findByMountainNo(mountain, pageable);
+    }
 }

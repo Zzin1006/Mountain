@@ -34,4 +34,5 @@ public class ResponseMTCommentDTO {
         this.updateAt = mtComment.getLstUpdDtm();
         this.mountainNo = mtComment.getMountainNo();
     }
+
 }

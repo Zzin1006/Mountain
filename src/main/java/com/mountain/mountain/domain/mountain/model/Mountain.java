@@ -30,19 +30,19 @@ public class Mountain {
     @Column(name = "lon")
     private Double lon;
 
-    @Column(name = "trans_info")
+    @Column(name = "trans_info", columnDefinition= "TEXT")
     private String transInfo;
 
-    @Column(name = "mountain_info")
+    @Column(name = "mountain_info" , columnDefinition= "TEXT")
     private String mountainInfo;
 
-    @Column(name = "address_detail")
+    @Column(name = "address_detail" , columnDefinition= "TEXT")
     private String addressDetail;
 
     @Column(name = "likes")
     private Long likes;
 
-    @Column(name = "mountain_sum")
+    @Column(name = "mountain_sum" , columnDefinition= "TEXT")
     private String mountainSum;
 
     @Column(name = "mountain_height")

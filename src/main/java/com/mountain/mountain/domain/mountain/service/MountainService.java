@@ -37,4 +37,5 @@ public class MountainService {
                 .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_MOUNTAIN));
         return mountain;
     }
+
 }
