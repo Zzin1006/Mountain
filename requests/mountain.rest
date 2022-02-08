@@ -4,9 +4,19 @@
 ### Get mountainsList(Success)
 
 
-GET http://localhost:8080/mountains?addressDetail=부
+GET http://localhost:8080/mountains?addressDetail부
 Authorization: Bearer test
 Content-Type: application/json
+
+
+
+### Get publicmountainsList(Success)
+
+
+GET http://localhost:8080/mountains/public
+Authorization: Bearer test
+Content-Type: application/json
+
 
 
 
