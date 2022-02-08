@@ -21,7 +21,7 @@ public class Mountain {
     @Column(name = "mountain_name")
     private String mountainName;
 
-    @Column(name = "org_url" , columnDefinition= "TEXT")
+    @Column(name = "org_url")
     private String orgUrl;
 
     @Column(name = "lat")

@@ -1,33 +1,35 @@
 
 ### Post MTComment(Success)
 
-POST http://localhost:8080/mountains/1/comments
+POST http://localhost:8080/mountains/3/comments
 Authorization: Bearer test1
 Content-Type: application/json
 
 {
 
-    "content" : "산댓"
+    "content" : "3댓"
 
 }
 
-### Get Comminity(Success)
 
-GET http://localhost:8080/communities?title=제목
-Authorization: Bearer test
-Content-Type: application/json
+### Delete MTComment(Success)
 
-### Get Comminity(Success)
-
-GET http://localhost:8080/communities
-Authorization: Bearer test
-Content-Type: application/json
-
-### Delete Comminity(Success)
-
-DELETE http://localhost:8080/communities/11
-Authorization: Bearer test
+DELETE http://localhost:8080/mountains/3/comments/38
+Authorization: Bearer test1
 Content-Type: application/json
 
 
 
+
+### Update MTComment(Success)
+
+PATCH  http://localhost:8080/mountains/1/comments/37
+Authorization: Bearer test1
+Content-Type: application/json
+
+
+{
+
+    "content" : "수정수정수정댓"
+
+}

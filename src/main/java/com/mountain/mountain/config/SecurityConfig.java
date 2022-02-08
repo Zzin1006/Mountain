@@ -33,8 +33,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterBefore(authFilterContainer.getFilter(),
                         UsernamePasswordAuthenticationFilter.class);
-                //.exceptionHandling() //예외처리 기능 작동
-                //.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)); // 인증실패시처리
     };
 
     @Override
@@ -56,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/fonts/**")
                 .antMatchers("/vendor/**")
                 .antMatchers("/favicon.ico")
+                .antMatchers("/pages/**")
             ;
     }
 
